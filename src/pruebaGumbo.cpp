@@ -15,12 +15,12 @@ std::string leerArchivoHTML(const std::string& rutaArchivo) {
     std::cerr << "No se pudo abrir el archivo: " << rutaArchivo << std::endl;
     return "";
   }
-
+    
   std::stringstream buffer;
   buffer << archivo.rdbuf();
   return buffer.str();
 }
-/*
+
 // Function to Auto complete the missing tag in the HTML Code
 std::string autoComplete(const std::string& s) {
     // Split the html Code into lines
@@ -96,7 +96,7 @@ std::string autoComplete(const std::string& s) {
     return "-1";
 }
  
-*/
+
 
 
 
