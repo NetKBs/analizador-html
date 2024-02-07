@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./datos/GestorDeArchivos.hpp"
+#include "GUI.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -15,6 +16,7 @@ int main(int argc, char* argv[]) {
     }
     
     cout << html << endl;
-
+    GUI gui;
+    gui.showMenu();
     return 0;
 }
