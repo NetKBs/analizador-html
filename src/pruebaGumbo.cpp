@@ -48,6 +48,8 @@ std::string autoComplete(const std::string& s) {
  
     // Loop to iterate over the lines of code
     for (const std::string& line : linesOfCode) {
+        std::cout << line << std::endl;
+
         for (size_t j = 0; j < line.size();) {
             // Check for end tags
             if (j + 1 < line.size() && line[j] == '<' && line[j + 1] == '/') {
@@ -60,7 +62,9 @@ std::string autoComplete(const std::string& s) {
                 while (j < line.size() && line[j] != '>') {
                     j++;
                 }
+                
                 if (!stack.empty() && stack.top() != tag) {
+                    std::cout << "Segun No hay Etiqueta Abierta: Stack:"<< stack.top() << " Tag: " << tag << std::endl;
                     return "</" + stack.top() + ">";
                 }
                 stack.pop();

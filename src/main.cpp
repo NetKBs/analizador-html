@@ -15,11 +15,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
  
-    vector <reporteError> reportesError = ErrorLens().detectarErrores(html);
+   reporteError error = ErrorLens().detectarErrores(html);
 
-    for (reporteError reporte : reportesError) {
-        cout << "Error Linea " << reporte.lineaError << " "; 
-        cout << reporte.muestraDeCodigo << " TIPO:" << reporte.error << endl;
+    if (error.lineaError != -1) {
+        cout << "Error Linea " << error.lineaError << " "; 
+        cout << error.muestraDeCodigo << " TIPO:" << error.error << endl;
     }
 
     return 0;

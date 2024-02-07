@@ -7,7 +7,7 @@
 using namespace std;
 
 enum errorEstados {
-    ERROR_TIPO_1, // tag apertura sin >
+    ERROR_TIPO_1=1, // tag apertura sin >
     ERROR_TIPO_2, // tag cierre sin >
     ERROR_TIPO_3, // tag de cierre sin tag de apertura
     ERROR_TIPO_4 // tag de apertura sin tag de cierre
@@ -27,8 +27,8 @@ class ErrorLens {
                                 "link", "meta", "param", "source", 
                                 "track", "wbr"};
     public:
-        vector<reporteError> detectarErrores(const string& html);
-        bool caracterDeCerrado(vector <string> LineasDecodigo, size_t LineaIndex, size_t letraIndex);
+        reporteError detectarErrores(const string& html);
+        bool caracterDeCerrado(vector <string> lineasDeCodigo, size_t LineaIndex, size_t letraIndex);
         vector <string> splitHtml(const string& html);
 };
 
