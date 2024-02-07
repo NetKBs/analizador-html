@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./datos/GestorDeArchivos.hpp"
 #include "GUI.h"
+#include "./negocio/ErrorLens.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -18,5 +19,13 @@ int main(int argc, char* argv[]) {
     cout << html << endl;
     GUI gui;
     gui.showMenu();
+ 
+   reporteError error = ErrorLens().detectarErrores(html);
+
+    if (error.lineaError != -1) {
+        cout << "Error Linea " << error.lineaError << " "; 
+        cout << error.muestraDeCodigo << " TIPO:" << error.error << endl;
+    }
+
     return 0;
 }

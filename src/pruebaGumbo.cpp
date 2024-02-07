@@ -15,12 +15,12 @@ std::string leerArchivoHTML(const std::string& rutaArchivo) {
     std::cerr << "No se pudo abrir el archivo: " << rutaArchivo << std::endl;
     return "";
   }
-
+    
   std::stringstream buffer;
   buffer << archivo.rdbuf();
   return buffer.str();
 }
-/*
+
 // Function to Auto complete the missing tag in the HTML Code
 std::string autoComplete(const std::string& s) {
     // Split the html Code into lines
@@ -48,6 +48,8 @@ std::string autoComplete(const std::string& s) {
  
     // Loop to iterate over the lines of code
     for (const std::string& line : linesOfCode) {
+        std::cout << line << std::endl;
+
         for (size_t j = 0; j < line.size();) {
             // Check for end tags
             if (j + 1 < line.size() && line[j] == '<' && line[j + 1] == '/') {
@@ -60,7 +62,9 @@ std::string autoComplete(const std::string& s) {
                 while (j < line.size() && line[j] != '>') {
                     j++;
                 }
+                
                 if (!stack.empty() && stack.top() != tag) {
+                    std::cout << "Segun No hay Etiqueta Abierta: Stack:"<< stack.top() << " Tag: " << tag << std::endl;
                     return "</" + stack.top() + ">";
                 }
                 stack.pop();
@@ -96,7 +100,7 @@ std::string autoComplete(const std::string& s) {
     return "-1";
 }
  
-*/
+
 
 
 
