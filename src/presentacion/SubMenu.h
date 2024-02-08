@@ -7,12 +7,11 @@
 
 
 
-
-
-
-
-
 class SubMenu {
+
+private:
+    void clearScreen();
+
 public:
     SubMenu();  // constructor
     ~SubMenu(); // destructor
@@ -20,6 +19,7 @@ public:
     void atributosHtml();
     void enlacesHtml();
     void imagenesHtml();
+
 
 };
 

@@ -13,6 +13,12 @@ SubMenu::~SubMenu() {
     endwin();
 }
 
+void SubMenu::clearScreen() {
+    clear();
+    refresh();
+}
+
+
 void SubMenu::tagsHtml() {
     int terminal_width = COLS; // Ancho de la terminal
     int terminal_height = LINES; // Altura de la terminal

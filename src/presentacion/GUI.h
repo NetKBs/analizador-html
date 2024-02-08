@@ -6,20 +6,6 @@
 #include <vector>
 #include <string>
 
-#ifdef _WIN32
-const std::string SO = "WIN";
-#elif __linux__
-const std::string SO = "UNIX";
-#endif
-
-inline void clearScreen() {
-    if (SO == "WIN") {
-        system("cls");
-    } else if (SO == "UNIX") {
-        system("clear");
-    }
-}
-
 inline void waitForInput() {
     std::cin.ignore();
     std::cin.get(); 
@@ -30,6 +16,7 @@ public:
     GUI();  // Constructor
     ~GUI(); // Destructor
     void showMenu();
+    void clearScreen();
 
 private:
     void handleOption(int option);

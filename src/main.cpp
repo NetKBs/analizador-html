@@ -1,6 +1,6 @@
 #include <iostream>
 #include "./datos/GestorDeArchivos.hpp"
-#include "GUI.h"
+#include "./presentacion/GUI.h"
 #include "./negocio/ErrorLens.hpp"
 using namespace std;
 

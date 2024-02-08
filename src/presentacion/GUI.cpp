@@ -1,5 +1,6 @@
 #include "GUI.h"
 #include "SubMenu.h"
+#include <ncurses.h>
 GUI::GUI() {
     initscr();         // Inicializar ncurses
     start_color();     // Habilitar el uso de colores
@@ -13,6 +14,11 @@ GUI::GUI() {
 
 GUI::~GUI() {
     endwin();          // Finalizar ncurses al destruir la instancia de la clase
+}
+
+void GUI::clearScreen() {
+    clear();
+    refresh();
 }
 
 void GUI::showMenu() {
