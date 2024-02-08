@@ -65,7 +65,7 @@ void GUI::showMenu() {
         mvprintw(menu_y + 2, menu_x, "2. Atributos de un tag");
         mvprintw(menu_y + 3, menu_x, "3. Enlaces de HTML");
         mvprintw(menu_y + 4, menu_x, "4. Imágenes de HTML");
-        mvprintw(menu_y + 5, menu_x, "5. Salir");
+        mvprintw(menu_y + 5, menu_x, "5. Guardar reporte");
         attroff(COLOR_PAIR(1));
 
         // Imprimir la opción actualmente seleccionada con colores diferentes
@@ -84,7 +84,7 @@ void GUI::showMenu() {
                 mvprintw(menu_y + 4, menu_x, "4. Imágenes de HTML");
                 break;
             case 5:
-                mvprintw(menu_y + 5, menu_x, "5. Salir");
+                mvprintw(menu_y + 5, menu_x, "5. Guardar reporte");
                 break;
         }
         attroff(COLOR_PAIR(2));
@@ -104,9 +104,8 @@ void GUI::showMenu() {
                 current_option++;
             }
         } else if (ch == '\n') {
-            if (current_option >= 1 && current_option <= 5) {
-                handleOption(current_option);  // Manejar la opción seleccionada
-                
+            if (current_option >= 1 && current_option <= 5) {                
+                handleOption(current_option);  // Manejar la opción seleccionad
             }
             
         }
