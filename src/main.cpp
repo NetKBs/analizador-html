@@ -1,7 +1,8 @@
 #include <iostream>
 #include "./datos/GestorDeArchivos.hpp"
+#include "./negocio/HTMLParser.h"
 #include "./presentacion/GUI.h"
-#include "./negocio/ErrorLens.hpp"
+#include "negocio/HTMLParser.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -16,16 +17,13 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
-    cout << html << endl;
-    GUI gui;
+    HTMLParser parser;
+    parser.parseHTML(html);
+    GUI gui = GUI(parser);
     gui.showMenu();
- 
-   reporteError error = ErrorLens().detectarErrores(html);
-
-    if (error.lineaError != -1) {
-        cout << "Error Linea " << error.lineaError << " "; 
-        cout << error.muestraDeCodigo << " TIPO:" << error.error << endl;
-    }
+    
+    
+    
 
     return 0;
 }

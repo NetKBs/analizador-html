@@ -1,7 +1,8 @@
 #include "GUI.h"
 #include "SubMenu.h"
 #include <ncurses.h>
-GUI::GUI() {
+GUI::GUI(HTMLParser parser) {
+    this->parser = parser;
     initscr();         // Inicializar ncurses
     start_color();     // Habilitar el uso de colores
     keypad(stdscr, TRUE); // Habilitar el teclado numérico
@@ -26,16 +27,8 @@ void GUI::showMenu() {
     int current_option = 1;
 
     getmaxyx(stdscr, max_y, max_x); // Obtener el tamaño de la terminal
-    
 
-    do {
-       clearScreen();
-        // Calcular las coordenadas para centrar el menú
-        int menu_y = (max_y - 11) / 2; // 7 líneas de texto en el menú
-        int menu_x = (max_x - 40) / 2 ; // 15 caracteres en la longitud más larga del menú
-
-        attron(COLOR_PAIR(1));
-        std::vector<std::string> ascii_art = {
+    std::vector<std::string> ascii_art = {
             "   __    ___                _                  __  ",
             "  / /   / / \\   _ __   __ _| |_   _ _______ _ _\\ \\ ",
             " / /   / / _ \\ | '_ \\ / _` | | | | |_  / _ \\ '__\\ \\",
@@ -44,6 +37,13 @@ void GUI::showMenu() {
             "                              |___/                   "
         };
 
+    do {
+       clearScreen();
+        // Calcular las coordenadas para centrar el menú
+        int menu_y = (max_y - 11) / 2; // 7 líneas de texto en el menú
+        int menu_x = (max_x - 40) / 2 ; // 15 caracteres en la longitud más larga del menú
+
+        attron(COLOR_PAIR(1));
         // Imprimir el arte ASCII
         for (size_t i = 0; i < ascii_art.size(); ++i) {
             mvprintw(menu_y-7 + i, menu_x-5, ascii_art[i].c_str());
@@ -117,20 +117,18 @@ void GUI::handleOption(int option) {
 
     switch (option) {
         case 1:
-            subMenu.tagsHtml();
+            subMenu.tagsHtml(parser.getTagCounts());
             break;
         case 2:
             subMenu.atributosHtml();
             break;
         case 3:
-            subMenu.enlacesHtml();
+            subMenu.enlacesHtml(parser.getLinks());
             break;
         case 4:
             subMenu.imagenesHtml();
             break;
     }
-
-    waitForInput();
 }
 
 

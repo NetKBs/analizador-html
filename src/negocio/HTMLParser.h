@@ -15,19 +15,21 @@ private:
     std::vector<std::string> lines;
 
 public:
-    // Constructor
-    HTMLParser();
-
+   
     // Funciones para extraer los enlaces e imágenes...
     void parseHTML(const std::string& htmlContent);
     void extractLinks(GumboNode* node);
     void extractImages(GumboNode* node);
 
-    // Métodos para acceder a los enlaces e imágenes
+    std::map<std::string, std::pair<int, double>> countAndSortTags(GumboNode* node);
+
+
+    // Métodos para acceder a los enlaces, imágenes, tag, etc
     const std::vector<std::string>& getLinks() const { return links; }
     const std::vector<std::string>& getImages() const { return images; }
+    std::map<std::string, std::pair<int, double>> getTagCounts() const { return tagCounts; }
     std::vector<std::string> searchTag(GumboNode* node, const std::string& targetTag);
-    std::map<std::string, std::pair<int, double>> countAndSortTags(GumboNode* node);
+
 };
 
 #endif // HTMLPARSER_HPP

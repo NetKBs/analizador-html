@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "../negocio/HTMLParser.h"
 
 inline void waitForInput() {
     std::cin.ignore();
@@ -12,8 +13,11 @@ inline void waitForInput() {
 }
 
 class GUI {
+private:
+    HTMLParser parser;
+
 public:
-    GUI();  // Constructor
+    GUI(HTMLParser parser);  // Constructor
     ~GUI(); // Destructor
     void showMenu();
     void clearScreen();
