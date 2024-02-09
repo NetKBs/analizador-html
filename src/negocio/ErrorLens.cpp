@@ -45,6 +45,8 @@ reporteError ErrorLens::detectarErrores(const string& html) {
     stack <pair<int,string>> tagsApertura;
     reporteError error;
 
+    bool etiquetaScript = false;
+
     for (size_t linea = 0; linea < lineasDeCodigo.size(); linea++) {
         for (size_t i = 0; i < lineasDeCodigo[linea].size(); i++) {
             
@@ -53,26 +55,35 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                 break;
             }
 
-            // Etiquetas de apertura
-            if (i+1 < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] == '<' && lineasDeCodigo[linea][i+1] != '/') {
-             
-                bool tagBienCerrado = caracterDeCerrado(lineasDeCodigo, linea, i+1);     
-                if (!tagBienCerrado) {
-                    return  {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_1};
+            // Ignorar si se está en busqueda de </script> 
+            if (!etiquetaScript) {
+                 // Etiquetas de apertura
+                if (i+1 < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] == '<' && lineasDeCodigo[linea][i+1] != '/') {
+                
+                    bool tagBienCerrado = caracterDeCerrado(lineasDeCodigo, linea, i+1);     
+                    if (!tagBienCerrado) {
+                        return  {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_1};
 
-                } else {
-                    string tag;
-                    i++; // skip <
-                    while(i < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] != '>') {      
-                        tag += lineasDeCodigo[linea][i];
-                        i++;
-                    }
-                    // Chequear si es un tag que no lleva cierre
-                    if (find(tagsSinCierre.begin(), tagsSinCierre.end(), tag) == tagsSinCierre.end()) {
-                        tagsApertura.push({linea,tag});
-                    }
-                }   
-            } 
+                    } else {
+                        string tag;
+                        i++; // skip <
+                        while(i < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] != '>' && lineasDeCodigo[linea][i] != ' ') {      
+                            tag += lineasDeCodigo[linea][i];
+                            i++;
+                        }
+                        // Chequear si es un tag que no lleva cierre
+                        cout << tag << endl;
+                        if (find(tagsSinCierre.begin(), tagsSinCierre.end(), tag) == tagsSinCierre.end()) {
+                            if (tag == "script") {
+                                etiquetaScript = true;
+                            } 
+                            tagsApertura.push({linea,tag});      
+                        }
+                    }   
+                }
+            }
+
+            
 
             // Etiquetas de cierre
             else if (i+1 < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] == '<' && lineasDeCodigo[linea][i+1] == '/') { 
@@ -94,6 +105,11 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                         return {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_3};
                     }
                     else if (tagsApertura.top().second != tag) {
+                      
+                        if (etiquetaScript) {
+                            return {(int)tagsApertura.top().first+1, lineasDeCodigo[tagsApertura.top().first], ERROR_TIPO_4};
+                        }
+
                         stack <pair<int, string>> aux;
 
                         while (!tagsApertura.empty()) {
@@ -109,6 +125,9 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                         return {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_3};
 
                     } else {
+                        if (etiquetaScript) {
+                            etiquetaScript = false;
+                        }
                         tagsApertura.pop();
                     }
                 }

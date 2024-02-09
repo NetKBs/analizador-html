@@ -1,0 +1,47 @@
+Tags del HTML:
+: 36 veces, 9.7561%
+a: 16 veces, 4.33604%
+body: 1 veces, 0.271003%
+button: 1 veces, 0.271003%
+center: 2 veces, 0.542005%
+div: 165 veces, 44.7154%
+form: 1 veces, 0.271003%
+head: 1 veces, 0.271003%
+hr: 1 veces, 0.271003%
+html: 1 veces, 0.271003%
+iframe: 1 veces, 0.271003%
+image: 1 veces, 0.271003%
+img: 11 veces, 2.98103%
+input: 9 veces, 2.43902%
+li: 4 veces, 1.08401%
+link: 1 veces, 0.271003%
+meta: 3 veces, 0.813008%
+script: 14 veces, 3.79404%
+span: 32 veces, 8.67209%
+style: 53 veces, 14.3631%
+svg: 11 veces, 2.98103%
+textarea: 2 veces, 0.542005%
+title: 1 veces, 0.271003%
+ul: 1 veces, 0.271003%
+
+Enlaces de HTML:
+https://mail.google.com/mail/&ogbl
+https://www.google.com/imghp?hl=es&ogbl
+https://www.google.co.ve/intl/es/about/products
+https://accounts.google.com/SignOutOptions?hl=es&continue=https://www.google.com/&ec=GBRAmgQ
+https://www.google.com/setprefs?sig=0_a6-by1xB4Glgq024IkD0cepsULQ%3D&hl=es-419&source=homepage&sa=X&ved=0ahUKEwi3yIKNppyEAxVjTDABHQCdB-wQ2ZgBCBc
+https://about.google/?utm_source=google-VE&utm_medium=referral&utm_campaign=hp-footer&fg=1
+https://www.google.com/intl/es_ve/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
+https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
+https://google.com/search/howsearchworks/?fg=1
+https://policies.google.com/privacy?hl=es-VE&fg=1
+https://policies.google.com/terms?hl=es-VE&fg=1
+https://www.google.com/preferences?hl=es-VE&fg=1
+https://www.google.com/advanced_search?hl=es-VE&fg=1
+https://myactivity.google.com/privacyadvisor/search?utm_source=googlemenu&fg=1
+https://myactivity.google.com/product/search?utm_source=google&hl=es-VE&fg=1
+https://support.google.com/websearch/?p=ws_results_help&hl=es-VE&fg=1
+
+Imágenes de HTML:
+./Google_files/unnamed.jpg
+./Google_files/googlelogo_color_272x92dp.png
