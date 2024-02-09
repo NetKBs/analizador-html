@@ -3,6 +3,7 @@
 
 #include <sstream>
 #include <fstream>
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/negocio/HTMLParser.h"  
 using namespace std;
 
 class GestorDeArchivos {
@@ -10,7 +11,10 @@ class GestorDeArchivos {
     private:
         stringstream buffer;
     public:
-        string leerArchivoHTML(const string& rutaArchivo);
+           std::string leerArchivoHTML(const std::string& rutaArchivo);
+          void guardarAnalisis(const HTMLParser& parser, const std::string& rutaArchivoSalida);
+        
+        
     
 };
 
