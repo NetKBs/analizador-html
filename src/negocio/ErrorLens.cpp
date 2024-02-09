@@ -72,7 +72,7 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                             i++;
                         }
                         // Chequear si es un tag que no lleva cierre
-                        cout << tag << endl;
+                        
                         if (find(tagsSinCierre.begin(), tagsSinCierre.end(), tag) == tagsSinCierre.end()) {
                             if (tag == "script") {
                                 etiquetaScript = true;
@@ -81,12 +81,10 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                         }
                     }   
                 }
-            }
 
-            
-
-            // Etiquetas de cierre
-            else if (i+1 < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] == '<' && lineasDeCodigo[linea][i+1] == '/') { 
+            } 
+                // Etiquetas de cierre
+                if (i+1 < lineasDeCodigo[linea].size() && lineasDeCodigo[linea][i] == '<' && lineasDeCodigo[linea][i+1] == '/') { 
                
                 bool tagBienCerrado = caracterDeCerrado(lineasDeCodigo, linea, i+2);
                 if (!tagBienCerrado) {
@@ -105,7 +103,7 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                         return {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_3};
                     }
                     else if (tagsApertura.top().second != tag) {
-                      
+
                         if (etiquetaScript) {
                             return {(int)tagsApertura.top().first+1, lineasDeCodigo[tagsApertura.top().first], ERROR_TIPO_4};
                         }
@@ -125,13 +123,17 @@ reporteError ErrorLens::detectarErrores(const string& html) {
                         return {(int)linea+1, lineasDeCodigo[linea], ERROR_TIPO_3};
 
                     } else {
+
+                        tagsApertura.pop();
                         if (etiquetaScript) {
                             etiquetaScript = false;
                         }
-                        tagsApertura.pop();
+                        
                     }
                 }
             }
+            
+            
         }
     }
 
