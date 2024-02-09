@@ -17,8 +17,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
-    HTMLParser parser;
-    parser.parseHTML(html);
+    HTMLParser parser = HTMLParser(html);
+    parser.extract();
     GUI gui = GUI(parser);
     gui.showMenu();
     

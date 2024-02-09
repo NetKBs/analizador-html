@@ -62,7 +62,7 @@ void GUI::showMenu() {
         // Imprimir el menú con colores
         attron(COLOR_PAIR(1));
         mvprintw(menu_y + 1, menu_x, "1. Tags del HTML");
-        mvprintw(menu_y + 2, menu_x, "2. Atributos de un tag");
+        mvprintw(menu_y + 2, menu_x, "2. Buscar tag");
         mvprintw(menu_y + 3, menu_x, "3. Enlaces de HTML");
         mvprintw(menu_y + 4, menu_x, "4. Imágenes de HTML");
         mvprintw(menu_y + 5, menu_x, "5. Guardar reporte");
@@ -75,7 +75,7 @@ void GUI::showMenu() {
                 mvprintw(menu_y + 1, menu_x, "1. Tags del HTML");
                 break;
             case 2:
-                mvprintw(menu_y + 2, menu_x, "2. Atributos de un tag");
+                mvprintw(menu_y + 2, menu_x, "2. Buscar tag");
                 break;
             case 3:
                 mvprintw(menu_y + 3, menu_x, "3. Enlaces de HTML");
@@ -120,13 +120,13 @@ void GUI::handleOption(int option) {
             subMenu.tagsHtml(parser.getTagCounts());
             break;
         case 2:
-            subMenu.atributosHtml();
+            subMenu.buscarUnTag(parser);
             break;
         case 3:
             subMenu.enlacesHtml(parser.getLinks());
             break;
         case 4:
-            subMenu.imagenesHtml();
+            subMenu.imagenesHtml(parser.getImages());
             break;
     }
 }

@@ -6,6 +6,8 @@
 #include <map>
 #include <ncurses.h>
 #include <vector>
+#include "../negocio/HTMLParser.h"
+
 using namespace std;
 
 
@@ -19,9 +21,9 @@ public:
     SubMenu();  // constructor
     ~SubMenu(); // destructor
     void tagsHtml(map<string, pair<int, double>> tagCounts);
-    void atributosHtml();
+    void buscarUnTag(HTMLParser parser);
     void enlacesHtml(vector<string> links);
-    void imagenesHtml();
+    void imagenesHtml(vector<string> imagenes);
 
 
 

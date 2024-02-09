@@ -1,3 +1,4 @@
+#include <gumbo.h>
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -5,14 +6,16 @@
 #include <string>
 #include "HTMLParser.h"
 
+HTMLParser::HTMLParser(const std::string& htmlContent) {
+    this->htmlContent = htmlContent;
+    output = gumbo_parse(htmlContent.c_str());
 
+}
 
-void HTMLParser::parseHTML(const std::string& htmlContent) {
-    GumboOutput* output = gumbo_parse(htmlContent.c_str());
+void HTMLParser::extract() {
     extractLinks(output->root);
     extractImages(output->root);
     tagCounts = countAndSortTags(output->root);
-    gumbo_destroy_output(&kGumboDefaultOptions, output);
 }
 
 //Extraer enlaces
@@ -47,8 +50,13 @@ void HTMLParser::extractImages(GumboNode* node) {
     }
 }
 
+std::vector<std::string> HTMLParser::getTag(const std::string& targetTag) {
+    return searchTag(output->root, targetTag);
+}
+
+
 //Dado un tag, mostrar sus atributos
-std::vector<std::string> HTMLParser::searchTag(GumboNode* node, const std::string& targetTag) {
+std::vector<std::string> HTMLParser::searchTag(GumboNode* node , const std::string& targetTag) {
     std::vector<std::string> lines;
 
     if (node->type != GUMBO_NODE_ELEMENT) {

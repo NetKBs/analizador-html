@@ -14,7 +14,7 @@ inline void waitForInput() {
 
 class GUI {
 private:
-    HTMLParser parser;
+    HTMLParser parser = HTMLParser("");
 
 public:
     GUI(HTMLParser parser);  // Constructor

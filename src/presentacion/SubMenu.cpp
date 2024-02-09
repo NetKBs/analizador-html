@@ -1,7 +1,6 @@
 // SubMenu.cpp
 #include "SubMenu.h"
-#include "GUI.h"
-#include <cstdio>
+#include <cctype>
 #include <cstring>
 #include <ncurses.h>
 
@@ -48,6 +47,15 @@ void SubMenu::imprimirMarco(string titulo) {
 }
 
 void SubMenu::tagsHtml(map<string, pair<int, double>> conteoEtiquetas) {
+
+  if (conteoEtiquetas.empty()) {
+    clear();
+    mvprintw(LINES / 2 - 10, COLS / 2 - 10, "No se encontraron etiquetas");
+    refresh();
+    getch();
+    return;
+  }
+
   int fila = 3;
   int columna = (COLS - 60) / 2;
   int columna_media = COLS / 2;
@@ -55,10 +63,10 @@ void SubMenu::tagsHtml(map<string, pair<int, double>> conteoEtiquetas) {
 
   int indice = 0;
   int pagina = 0;
-  int elementosPorPagina = LINES - 10; // Calcula cuántos elementos caben en una página
+  int elementosPorPagina = LINES - 10; 
 
   while (indice < cantidadEtiquetas) {
-    clear(); // Borra la pantalla antes de imprimir la siguiente página
+    clear(); 
     imprimirMarco("TAGS DEL HTML");
     mvprintw(fila, columna + 10, "Etiqueta");
     mvprintw(fila, columna_media - 3, "Cantidad");
@@ -75,10 +83,10 @@ void SubMenu::tagsHtml(map<string, pair<int, double>> conteoEtiquetas) {
       ++indice;
     }
 
-    mvprintw(LINES - 3, columna-3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
+    mvprintw(LINES - 3, columna - 3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
     refresh();
-    int continuar = getch();
 
+    int continuar = getch();
     if (continuar == 'q') {
       return;
     }
@@ -87,34 +95,94 @@ void SubMenu::tagsHtml(map<string, pair<int, double>> conteoEtiquetas) {
   }
 }
 
-void SubMenu::atributosHtml() {}
+void SubMenu::buscarUnTag(HTMLParser parser) {
 
-void SubMenu::enlacesHtml(vector<string> links) {
   int fila = 3;
   int columna = (COLS - 60) / 2;
-  int columna_media = COLS / 2;
-  int cantidadLinks = links.size();
-
   int indice = 0;
   int pagina = 0;
   int elementosPorPagina = LINES - 10; // Calcula cuántos elementos caben en una página
+
+  imprimirMarco("");
+  attron(COLOR_PAIR(1));
+  echo(); // Habilitar el eco de los caracteres ingresados por el usuariomvprin
+  mvprintw(LINES / 2 - 10, COLS / 2 - 10, "BUSCAR UN TAG");
+  mvprintw(LINES / 2 - 10 + 2, COLS / 2 - 15, ">>> ");
+  attroff(COLOR_PAIR(1));
+
+  char userInput[256];
+  getnstr(userInput, sizeof(userInput) - 1);
+  noecho(); // Deshabilitar el eco de los caracteres
+
+  vector<string> etiquetas = parser.getTag(userInput);
+  if (etiquetas.empty()) {
+    clear();
+    mvprintw(LINES / 2 - 10, COLS / 2 - 10, "No se encontraron etiquetas");
+    refresh();
+    getch();
+    return;
+  }
+
+  int cantidadEtiquetas = etiquetas.size();
+  while (indice < cantidadEtiquetas) {
+    imprimirMarco("");
+
+    for (int i = 0; i < elementosPorPagina && indice < cantidadEtiquetas; ++i) {
+
+      if (etiquetas[indice].length() > COLS - 10) {
+        mvprintw(fila, 2, "[%d] <%s>", indice + 1, (etiquetas[indice].substr(0, COLS - 15) + "...").c_str());
+      } else {
+        mvprintw(fila, 2, "[%d] <%s>", indice + 1, etiquetas[indice].c_str());
+      }
+      ++fila;
+      ++indice;
+    }
+
+    mvprintw(LINES - 3, columna - 3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
+    refresh();
+
+    int continuar = getch();
+    if (continuar == 'q') {
+      return;
+    }
+    fila = 3;
+    ++pagina;
+  }
+}
+
+void SubMenu::enlacesHtml(vector<string> links) {
+
+  if(links.empty()){
+    clear();
+    mvprintw(LINES / 2 - 10, COLS / 2 - 10, "No se encontraron enlaces");
+    refresh();
+    getch();
+    return;
+  }
+
+  int fila = 3;
+  int columna = (COLS - 60) / 2;
+  int cantidadLinks = links.size();
+  int indice = 0;
+  int pagina = 0;
+  int elementosPorPagina = LINES - 10; // Calcula cuántos elementos caben en una 
 
   while (indice < cantidadLinks) {
     clear(); // Borra la pantalla antes de imprimir la siguiente página
     imprimirMarco("ENLACES EN EL HTML");
 
     for (int i = 0; i < elementosPorPagina && indice < cantidadLinks; ++i) {
-    
-      if (links[i].length() > COLS - 10) {
-        mvprintw(fila, 2, "[%d] %s", i + 1, (links[i].substr(0, COLS - 15) + "...").c_str());
+
+      if (links[indice].length() > COLS - 10) {
+        mvprintw(fila, 2, "[%d] %s", indice + 1, (links[indice].substr(0, COLS - 15) + "...").c_str());
       } else {
-        mvprintw(fila, 2, "[%d] %s", i + 1, links[i].c_str());
+        mvprintw(fila, 2, "[%d] %s", indice + 1, links[indice].c_str());
       }
       ++fila;
       ++indice;
     }
 
-    mvprintw(LINES - 3, columna-3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
+    mvprintw(LINES - 3, columna - 3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
     refresh();
     int continuar = getch();
 
@@ -126,5 +194,47 @@ void SubMenu::enlacesHtml(vector<string> links) {
   }
 }
 
+void SubMenu::imagenesHtml(vector<string> imagenes) {
 
-void SubMenu::imagenesHtml() {}
+  if (imagenes.empty()) {
+    clear();
+    mvprintw(LINES / 2 - 10, COLS / 2 - 10, "No se encontraron imágenes");
+    refresh();
+    getch();
+    return;
+  }
+
+  int fila = 3;
+  int columna = (COLS - 60) / 2;
+  int cantidadImagenes = imagenes.size();
+  int indice = 0;
+  int pagina = 0;
+  int elementosPorPagina = LINES - 10; // Calcula cuántos elementos caben en una página
+
+  while (indice < cantidadImagenes) {
+    clear(); // Borra la pantalla antes de imprimir la siguiente página
+    imprimirMarco("IMAGENES EN EL HTML");
+
+    for (int i = 0; i < elementosPorPagina && indice < cantidadImagenes; ++i) {
+
+      if (imagenes[indice].length() > COLS - 10) {
+        mvprintw(fila, 2, "[%d] %s", indice + 1,
+                 (imagenes[indice].substr(0, COLS - 15) + "...").c_str());
+      } else {
+        mvprintw(fila, 2, "[%d] %s", indice + 1, imagenes[indice].c_str());
+      }
+      ++fila;
+      ++indice;
+    }
+
+    mvprintw(LINES - 3, columna - 3, "<< Página %d - Presione 'q' para salir o 'cualquier tecla' para continuar >>", pagina + 1);
+    refresh();
+
+    int continuar = getch();
+    if (continuar == 'q') {
+      return;
+    }
+    fila = 3;
+    ++pagina;
+  }
+}
