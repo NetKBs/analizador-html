@@ -1,8 +1,7 @@
 #include <iostream>
-#include "./datos/GestorDeArchivos.hpp"
-#include "./negocio/HTMLParser.h"
-#include "./presentacion/GUI.h"
-#include "negocio/HTMLParser.h"
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/datos/GestorDeArchivos.hpp"
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/negocio/HTMLParser.h"
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/presentacion/GUI.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {

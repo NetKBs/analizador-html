@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../negocio/HTMLParser.h"
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/negocio/HTMLParser.h"
 
 inline void waitForInput() {
     std::cin.ignore();

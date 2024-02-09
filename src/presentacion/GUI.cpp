@@ -1,6 +1,9 @@
 #include "GUI.h"
 #include "SubMenu.h"
 #include <ncurses.h>
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/negocio/HTMLParser.h"
+#include "/home/manuelrg/Documentos/Programacion/analizador-html/src/datos/GestorDeArchivos.hpp"
+
 GUI::GUI(HTMLParser parser) {
     this->parser = parser;
     initscr();         // Inicializar ncurses
@@ -128,6 +131,19 @@ void GUI::handleOption(int option) {
         case 4:
             subMenu.imagenesHtml(parser.getImages());
             break;
+
+        case 5:
+           {
+                std::string rutaArchivoSalida;
+                // Puedes pedir la ruta del archivo al usuario o asignarla directamente
+                // Aquí se asigna una ruta de ejemplo
+                rutaArchivoSalida = "/home/manuelrg/Documentos/reporte_analisis.txt";
+                GestorDeArchivos gestorDeArchivos;
+                gestorDeArchivos.guardarAnalisis(parser, rutaArchivoSalida);
+            }
+            break;
+
+
     }
 }
 
